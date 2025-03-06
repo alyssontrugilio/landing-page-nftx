@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import { ButtonTrial } from '../atoms/ButtonTrial';
 
 export function Header() {
   return (
-    <div className='flex gap-51 my-16'>
+    <div className='flex gap-51 '>
       <div className='flex gap-2 items-center '>
         <svg
           width='60'
@@ -26,12 +26,7 @@ export function Header() {
         <p className='text-gray-400 hover:text-white cursor-pointer '>Pricing</p>
         <p className='text-gray-400 hover:text-white cursor-pointer '>Reviews</p>
       </div>
-      <Link
-        href={'#'}
-        className='text-[#293241] bg-white py-3.5 px-6 rounded-2xl font-normal flex gap-2 items-center'>
-        <p> Start free 14 trial</p>
-        <p className='ph ph-arrow-right font-bold'></p>
-      </Link>
+      <ButtonTrial />
     </div>
   );
 }

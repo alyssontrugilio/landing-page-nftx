@@ -1,94 +1,77 @@
+'use client';
+import { useState } from 'react';
+
 export function Pricing() {
   const pricingMock = [
     {
       id: 1,
       planName: 'Starter',
       planPricing: 15,
-      isRocommended: false,
+      isRecommended: false,
       color: '#EDCB50',
       advantages: [
-        {
-          'Using basic skills you can': true,
-          'Using basic skills you can impr': true,
-          'Using basic skills you can improve': true,
-          'Using basic skills you can ': false,
-          'Using basic skills you cans ': false,
-          'Using basic skills you canns ': false,
-        },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: false },
+        { text: 'Using basic skills you can', isActive: false },
+        { text: 'Using basic skills you can', isActive: false },
       ],
     },
     {
       id: 2,
       planName: 'Business',
       planPricing: 75,
-      isRocommended: true,
+      isRecommended: true,
       color: '#1681FE',
       advantages: [
-        {
-          'Using basic skills you can': true,
-          'Using basic skills you can impr': true,
-          'Using basic skills you can improve': true,
-          'Using basic skills you can ': true,
-          'Using basic skills you cans ': false,
-          'Using basic skills you canns ': false,
-        },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: false },
+        { text: 'Using basic skills you can', isActive: false },
       ],
     },
     {
       id: 3,
       planName: 'Premium',
       planPricing: 15,
-      isRocommended: false,
+      isRecommended: false,
       color: '#448C74',
       advantages: [
-        {
-          'Using basic skills you can': true,
-          'Using basic skills you can impr': true,
-          'Using basic skills you can improve': true,
-          'Using basic skills you can ': true,
-          'Using basic skills you cans ': true,
-          'Using basic skills you canns ': true,
-        },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
+        { text: 'Using basic skills you can', isActive: true },
       ],
     },
   ];
   return (
-    <div className='mt-[150px] flex flex-col'>
-      <div className='flex flex-col gap-8'>
-        <p className='font-bold text-5xl'>Pricing</p>
-        <p className='text-[#7F848D]'>
-          Using basic skills you can improve your business stuff with Around
-        </p>
+    <section className='bg-[#f0f9ff] py-[150px] w-full'>
+      <div className=' flex flex-col max-w-[1321px] mx-auto '>
+        <div className='flex flex-col gap-8'>
+          <p className='font-bold text-5xl text-[#293241]'>Pricing</p>
+          <p className='text-[#7F848D]'>
+            Using basic skills you can improve your business stuff with Around
+          </p>
+        </div>
+        <div className='flex gap-6 mt-[74px]'>
+          {pricingMock.map((plan) => (
+            <CardPricing
+              key={plan.id}
+              advantagesList={plan.advantages}
+              colorPlan={plan.color}
+              isRecommended={plan.isRecommended}
+              planName={plan.planName}
+              planPricing={plan.planPricing}
+            />
+          ))}
+        </div>
       </div>
-      <div className='flex gap-6 mt-[74px]'>
-        <CardPricing
-          key={0}
-          planName={pricingMock[0].planName}
-          planPricing={pricingMock[0].planPricing}
-          colorPlan={pricingMock[0].color}
-          isRecommended={pricingMock[0].isRocommended}
-          advantagesList={pricingMock[0].advantages}
-        />
-
-        <CardPricing
-          key={1}
-          planName={pricingMock[1].planName}
-          planPricing={pricingMock[1].planPricing}
-          colorPlan={pricingMock[1].color}
-          isRecommended={pricingMock[1].isRocommended}
-          advantagesList={pricingMock[1].advantages}
-        />
-
-        <CardPricing
-          key={2}
-          planName={pricingMock[2].planName}
-          planPricing={pricingMock[2].planPricing}
-          colorPlan={pricingMock[2].color}
-          isRecommended={pricingMock[2].isRocommended}
-          advantagesList={pricingMock[2].advantages}
-        />
-      </div>
-    </div>
+    </section>
   );
 }
 
@@ -96,13 +79,21 @@ type CardPricingProps = {
   planName: string;
   planPricing: number;
   colorPlan: string;
-  advantagesList: { [key: string]: boolean }[];
+  advantagesList: {
+    text: string;
+    isActive: boolean;
+  }[];
   isRecommended: boolean;
 };
 
 function CardPricing({ planName, planPricing, colorPlan, advantagesList }: CardPricingProps) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className='w-[424px] h-[539px] rounded-3xl bg-white p-8 flex flex-col'>
+    <div
+      className='w-[424px] h-[539px] rounded-3xl bg-white border-2  p-8 flex flex-col'
+      style={{ borderColor: isHovered ? colorPlan : undefined }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
       <div className='flex gap-3'>
         <div
           style={{ backgroundColor: colorPlan }}
@@ -129,19 +120,22 @@ function CardPricing({ planName, planPricing, colorPlan, advantagesList }: CardP
       </div>
       <hr className='text-[#EAEBEC] w-full h-0.5 mt-8 mb-[50px]' />
       <div className='text-black flex flex-col gap-4'>
-        {advantagesList.map((advantage, index) =>
-          Object.entries(advantage).map(([key, value]) => (
-            <div
-              key={index}
-              className={`flex gap-2.5 items-center ${value ? 'text-black' : 'text-[#A9ADB3]'}`}>
-              <i
-                style={{ color: value ? colorPlan : '#A9ADB3' }}
-                className={`ph ph-${value ? 'check-circle' : 'x-circle'} text-2xl`}></i>
-              <p>{key}</p>
-            </div>
-          )),
-        )}
+        {advantagesList.map(({ text, isActive }, index) => (
+          <div
+            key={`${index}-${text}`}
+            className={`flex gap-2.5 items-center ${isActive ? 'text-black' : 'text-[#A9ADB3]'}`}>
+            <i
+              style={{ color: isActive ? colorPlan : '#A9ADB3' }}
+              className={`ph ph-${isActive ? 'check-circle' : 'x-circle'} text-2xl`}></i>
+            <span>{text}</span>
+          </div>
+        ))}
       </div>
+      <button
+        className='text-black py-3.5 border rounded-xl mt-[50px] cursor-pointer hover:font-medium'
+        style={{ borderColor: colorPlan, color: colorPlan }}>
+        Get Start
+      </button>
     </div>
   );
 }

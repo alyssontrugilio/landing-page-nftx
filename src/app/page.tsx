@@ -1,51 +1,44 @@
-import Image from 'next/image';
-import { EmailInput } from './components/molecules/EmailInput';
+import { Analyse } from './components/organism/Analyse';
 import { CustomerReview } from './components/molecules/CustomerReview';
-import { Infocard } from './components/molecules/InfoCard';
-import { infoCardMock } from './mocks';
+import { Hero } from './components/organism/Hero';
+import { TestimonialCharts } from './components/organism/TestimonialCharts';
+import { Values } from './components/organism/Values';
+import { Pricing } from './components/organism/Pricing';
 import { Testimonial } from './components/organism/Testimonial';
-import { Analyse } from './components/molecules/Analyse';
-import { Pricing } from './components/molecules/Pricing';
+import { ButtonTrial } from './components/atoms/ButtonTrial';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className='flex flex-col items-center text-center'>
-      <p className='text-gray-400 font-normal text-2xl mb-7'>
-        Using basic skills you can improve your business stuff with Around
-      </p>
-      <p className='font-bold text-7xl'>One Dashboard to Manage all Your businesses</p>
-      <EmailInput />
-
-      {/* Dasboard image */}
-      <Image
-        className='mt-[70px] shadow-md mb-[150px]'
-        alt='um dashboard'
-        height={923}
-        width={1320}
-        src={'/img/dashboard.webp'}
-      />
+    <>
+      <Hero />
       <CustomerReview />
-      <div className='mt-[150px]'>
-        <div className='space-y-6'>
-          <p className='font-bold text-5xl'>How Does it Work?</p>
-          <p className='text-2xl font-normal'>
-            Using basic skills you can improve your business stuff with Around
-          </p>
+      <Values />
+      <TestimonialCharts />
+      <Analyse />
+      <Pricing />
+      <Testimonial />
+      <section className='bg-white w-full pb-[150px]'>
+        <div className='bg-[#293241]  max-w-[1321px] mx-auto rounded-[40px] pl-[60px] pt-[65px] flex gap-24 items-start'>
+          <div className='max-w-[486px] pt-[26px] pb-[90px] flex flex-col items-baseline gap-7'>
+            <p className='text-white font-bold text-5xl'>
+              The best flows on the planet, at your fingertips.
+            </p>
+            <p className='text-xl'>
+              Nulla facilisi. Vestibulum non est nisl. Donec eget sodales nisl. Donec ut velit erat.{' '}
+            </p>
+            <ButtonTrial />
+          </div>
+
+          <Image
+            className='rounded-4xl bg-trasparent'
+            alt='dashboard'
+            height={549}
+            width={784}
+            src={'/img/dashboard.webp'}
+          />
         </div>
-        <div className='mt-[111px] flex gap-6 '>
-          {infoCardMock.map((info) => (
-            <Infocard
-              id={info.id}
-              title={info.title}
-              description={info.description}
-              key={info.id}
-            />
-          ))}
-        </div>
-        <Testimonial />
-        <Analyse />
-        <Pricing />
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
